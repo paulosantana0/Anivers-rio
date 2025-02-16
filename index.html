@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Áudio, Imagem Girando e Texto Animado</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Estiliza a imagem */
+        .image-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            opacity: 0;
+            transition: transform 1s ease-out, opacity 1s ease-out;
+        }
+
+        /* Quando a classe "show" é adicionada, a imagem cresce e começa a girar */
+        .image-container.show {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+            animation: spin 5s linear infinite; /* Faz a imagem girar continuamente */
+        }
+
+        /* Animação de rotação */
+        @keyframes spin {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* Estiliza o parágrafo */
+        #text {
+            position: fixed;
+            top: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 24px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 1s ease-out;
+            color: lightgreen; /* Cor do texto */
+        }
+
+        /* Quando a classe "show" é adicionada ao <p>, ele aparece */
+        #text.show {
+            opacity: 1;
+            animation: pulse 2s infinite ease-in-out; /* Animação contínua */
+        }
+
+        /* Animação de pulsação (aumenta e diminui o tamanho) */
+        @keyframes pulse {
+            0% { transform: translateX(-50%) scale(1); }
+            50% { transform: translateX(-50%) scale(1.2); }
+            100% { transform: translateX(-50%) scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Áudios -->
+    <audio id="audio1" loop muted>
+        <source src="src/audios/WhatsApp-Audio-2025-02-16-at-01.22.46.ogg" type="audio/ogg">
+    </audio>
+    
+    <audio id="audio2" loop muted>
+        <source src="src/audios/WhatsApp-Audio-2025-02-16-at-01.59.19.ogg" type="audio/ogg">
+    </audio>
+
+    <!-- Título que inicia tudo ao ser clicado -->
+    <h1 id="start">Clique aqui!!!!!</h1>
+
+    <!-- Imagem oculta inicialmente -->
+    <img id="image" class="image-container" src="src/images/WhatsApp Image 2025-02-16 at 02.41.56.jpeg" width="300" alt="Imagem girando">
+
+    <!-- Texto oculto inicialmente -->
+    <p id="text">FELIZ ANIVERSARIO C É FODA!!!!</p>
+
+    <script>
+        document.getElementById('start').addEventListener('click', function() {
+            var audio1 = document.getElementById('audio1');
+            var audio2 = document.getElementById('audio2');
+            var image = document.getElementById('image');
+            var text = document.getElementById('text');
+
+            // Toca os áudios
+            audio1.play();
+            audio2.play();
+            audio1.muted = false;
+            audio2.muted = false;
+            audio2.playbackRate = 2.0;
+            audio2.volume = 0.5;
+
+            // Adiciona a classe que expande e gira a imagem
+            image.classList.add('show');
+
+            // Adiciona a classe que exibe e anima o texto
+            text.classList.add('show');
+        });
+    </script>
+</body>
+</html>
